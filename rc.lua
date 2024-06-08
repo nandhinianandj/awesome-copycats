@@ -50,8 +50,9 @@ local pomodoro = awmodoro.new({
 	end,
 
 	finish_callback = function()
-		for s in screen do
-			s.mywibox.visible = true
+    awful.util.spawn("aplay	/home/foo/sounds/bell.wav")
+		for s = 1, screen.count() do
+			mywibox[s].visible = true
 		end
 		pomowibox.visible = false
 	end})
