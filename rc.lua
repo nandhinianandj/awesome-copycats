@@ -891,6 +891,24 @@ client.connect_signal("request::titlebars", function(c)
     }
 end)
 
+
+--multiple screens
+screens = {
+    --['HDMI-0'] = {
+    --    ['connected'] = function (xrandrOutput)
+    --        return '--output ' .. xrandrOutput .. ' --auto --same-as LVDS1'
+    --    end,
+    --}
+    ['DVI-D-0'] = {
+        ['connected'] = function (xrandrOutput)
+            return '--output ' .. xrandrOutput .. ' --auto --left-of HDMI-0'
+        end,
+        ['disconnected'] = function (xrandrOutput)
+            return '--output ' .. xrandrOutput .. ' --off --output HDMI-0 --auto'
+        end
+    }
+}
+
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", {raise = vi_focus})
@@ -925,8 +943,7 @@ awful.util.spawn("nohup rescuetime &")
 -- music
 --awful.util.spawn("nohup spotify &")
 -- redshift
-awful.util.spawn("nohup redshift &")
-
+-- awful.util.spawn("nohup redshift &")
 -- awful.util.spawn("nohup signal-desktop &")
 -- awful.util.spawn("nohup teams &")
 -- awful.util.spawn("nohup skypeforlinux &")
@@ -936,5 +953,4 @@ awful.util.spawn("nohup redshift &")
 -- awful.util.spawn("nohup syncthing start &")
 awful.util.spawn("nohup discord &")
 awful.util.spawn("nohup Telegram &")
-awful.util.spawn("xscreensaver &")
 --awful.util.spawn("sudo " .. string.format("%s/playspace/get-shit-done/get-shit-done.py work;", os.getenv("HOME")))
