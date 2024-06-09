@@ -116,8 +116,7 @@ local function run_once(cmd_arr)
 end
 
 --run_once({ "urxvtd", "unclutter -root" }) -- comma-separated entries
-run_once({ "rescuetime", "nm-applet", "discord", 
-            "eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg) &" }) -- comma-separated entries
+run_once({"eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg) &" }) -- comma-separated entries
 
 -- This function implements the XDG autostart specification
 --[[
@@ -958,7 +957,7 @@ tag.connect_signal("property::selected", backham)
 -- autostart dropbox, rescuetime, network manager etc..
 --awful.util.spawn("nm-applet &")
 -- Communications and time management.
---awful.util.spawn("nohup rescuetime &")
+awful.util.spawn("nohup rescuetime &")
 -- music
 --awful.util.spawn("nohup spotify &")
 -- redshift
@@ -970,6 +969,7 @@ tag.connect_signal("property::selected", backham)
 -- awful.util.spawn("nohup slack &")
 -- awful.util.spawn("nohup zoom &")
 -- awful.util.spawn("nohup syncthing start &")
+awful.util.spawn("nohup nm-applet &")
 awful.util.spawn("nohup discord &")
 -- awful.util.spawn("nohup Telegram &")
 --awful.util.spawn("sudo " .. string.format("%s/playspace/get-shit-done/get-shit-done.py work;", os.getenv("HOME")))
