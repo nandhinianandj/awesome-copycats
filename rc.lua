@@ -69,6 +69,22 @@ if awesome.startup_errors then
     }
 end
 
+-- configuration - edit to your liking
+local wp_index = 1
+local wp_timeout  = 300
+local wp_path = string.format("%s/Pictures/wallpapers", os.getenv("HOME"))
+--local wp_files = scandir(wp_path)
+local wp_file = wp_path .. '/' .. '1717385466071.jpeg'
+local wp_file1 = wp_path .. '/' .. 'zhq8i4esy6nb1.jpg'
+--nomi_wp = wp_path .. '/' .. '87176258_10158216083568586_2744505873333223424_o.jpg'
+--climate_wp = wp_path .. '/' .. 'climateChangeDenialismStrategies.png'
+-- climate_risks = wp_path .. '/' .. '1682973858638.jpeg'
+-- cc1_layout = wp_path .. '/' .. 'cc1_alpha_layout.png'
+-- set wallpaper to current index for all screens
+for s = 1, screen.count() do
+    -- gears.wallpaper.maximized(wp_path .. '/' .. wp_files[wp_index], s, true)
+    gears.wallpaper.maximized(wp_file1, s, true)
+end
 -- Handle runtime errors after startup
 do
     local in_error = false
@@ -99,7 +115,9 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "urxvtd", "unclutter -root" }) -- comma-separated entries
+--run_once({ "urxvtd", "unclutter -root" }) -- comma-separated entries
+run_once({ "rescuetime", "nm-applet", "discord", 
+            "eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg) &" }) -- comma-separated entries
 
 -- This function implements the XDG autostart specification
 --[[
@@ -225,6 +243,7 @@ local myawesomemenu = {
    { "Hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
    { "Manual", string.format("%s -e man awesome", terminal) },
    { "Edit config", string.format("%s -e %s %s", terminal, editor, awesome.conffile) },
+   { "switch user", terminal .. " -e /usr/bin/dm-tool switch-to-greeter " },
    { "Restart", awesome.restart },
    { "Quit", function() awesome.quit() end },
 }
@@ -935,11 +954,11 @@ client.connect_signal("unmanage", backham)
 tag.connect_signal("property::selected", backham)
 
 -- }}}
-awful.util.spawn("eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg) &")
+--awful.util.spawn("eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg) &")
 -- autostart dropbox, rescuetime, network manager etc..
-awful.util.spawn("nm-applet &")
+--awful.util.spawn("nm-applet &")
 -- Communications and time management.
-awful.util.spawn("nohup rescuetime &")
+--awful.util.spawn("nohup rescuetime &")
 -- music
 --awful.util.spawn("nohup spotify &")
 -- redshift
@@ -952,5 +971,5 @@ awful.util.spawn("nohup rescuetime &")
 -- awful.util.spawn("nohup zoom &")
 -- awful.util.spawn("nohup syncthing start &")
 awful.util.spawn("nohup discord &")
-awful.util.spawn("nohup Telegram &")
+-- awful.util.spawn("nohup Telegram &")
 --awful.util.spawn("sudo " .. string.format("%s/playspace/get-shit-done/get-shit-done.py work;", os.getenv("HOME")))
